@@ -4,7 +4,6 @@
 
 Production and staging accounts: EKS workloads (100+ microservices, HTTP and gRPC), self-managed Redis clusters, Kafka (3 brokers), Cassandra (3 nodes), Elasticsearch/APM, MySQL + ProxySQL, MongoDB Atlas, internal Route53 private zones, CI/CD (Jenkins), monitoring. The transcoding/live-streaming cluster was a later, separate phase.
 
-Out of scope: an analytics account (EMR + Airflow stayed in AWS, reached through a tunnel). We decided not to add a directory service (Active Directory), because it wasn't needed for a small team.
 
 ## Order
 
