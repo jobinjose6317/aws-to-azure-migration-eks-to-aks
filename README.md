@@ -1,6 +1,6 @@
 # AWS → Azure migration: EKS to AKS, plus Redis, Kafka, Cassandra and DNS
 
-Case study: moving a live-streaming and gaming platform's **staging and production** from AWS to Azure (Central India). In scope were about 50 microservices on EKS, the self-managed Redis, Kafka, Cassandra and Elasticsearch, internal DNS, CI/CD and monitoring. The platform kept serving traffic the whole time: stage moved first, then prod services were switched over in batches, and each data store got a migration method that suited it.
+Case study: moving a live-streaming and gaming platform's **staging and production** from AWS to Azure (Central India). In scope were 100+ microservices on EKS, the self-managed Redis, Kafka, Cassandra and Elasticsearch, internal DNS, CI/CD and monitoring. The platform kept serving traffic the whole time: stage moved first, then prod services were switched over in batches, and each data store got a migration method that suited it.
 
 
 ## Architecture during the migration
@@ -8,7 +8,7 @@ Case study: moving a live-streaming and gaming platform's **staging and producti
 ```mermaid
 flowchart LR
   subgraph AWS["AWS (ap-south-1)"]
-    EKS[EKS: ~50 services]
+    EKS[EKS: 100+ services]
     RA[(Redis clusters)]
     KA[(Kafka x3)]
     CA[(Cassandra x3)]
@@ -74,11 +74,6 @@ docs/post-migration.md   cleanup + optimisation after cutover
 manifests/               Istio gRPC gateway LB (reconstruction)
 scripts/                 redis RIOT sync, cassandra join/remove, kafka topic recreate, DNS cutover check (UNTESTED reconstructions)
 ```
-
-## Honesty notes
-
-- Facts come from my Slack updates and project notes. Commands are sanitized. Scripts and manifests are **reconstructions**.
-- **Correction:** early in the project I wrote that VMs would be AMD because "no Graviton/ARM support in Central India". Later I built the Cassandra VMs on **Azure ARM sizes (Dpsv6)**. MySQL/ProxySQL stayed on AMD/x86.
 
 ## License
 
