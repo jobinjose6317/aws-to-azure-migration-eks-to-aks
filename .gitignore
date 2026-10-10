@@ -1,0 +1,12 @@
+# local scratch
+*.bak*
+*.log
+*.tmp
+/tmp/
+.env
+*.pem
+*.key
+kubeconfig*
+.DS_Store
+.idea/
+.vscode/

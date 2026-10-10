@@ -1,0 +1,35 @@
+# UNTESTED RECONSTRUCTION.
+# Separate L4 LoadBalancer for gRPC over TLS on AKS. Envoy terminates TLS (SDS secret).
+# REST traffic keeps using Application Gateway -> istio-ingressgateway-public.
+apiVersion: v1
+kind: Service
+metadata:
+  name: istio-ingressgateway-grpc
+  namespace: istio-system
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-tcp-idle-timeout: "<minutes>"   # set for long-lived streams
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  selector:
+    app: istio-ingressgateway-public
+  ports:
+    - name: https-grpc
+      port: 443
+      targetPort: 8443
+      protocol: TCP
+---
+apiVersion: networking.istio.io/v1
+kind: Gateway
+metadata:
+  name: <svc>-gateway-grpc
+  namespace: <namespace>
+spec:
+  selector:
+    app: istio-ingressgateway-public
+  servers:
+    - port: { number: 443, name: https-grpc, protocol: HTTPS }
+      hosts: ["<svc>-grpc.<domain>"]
+      tls:
+        mode: SIMPLE
+        credentialName: <wildcard-tls-secret>
