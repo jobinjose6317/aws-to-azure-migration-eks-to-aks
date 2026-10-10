@@ -2,7 +2,6 @@
 
 Case study: moving a live-streaming and gaming platform's **staging and production** from AWS to Azure (Central India). In scope were about 50 microservices on EKS, the self-managed Redis, Kafka, Cassandra and Elasticsearch, internal DNS, CI/CD and monitoring. The platform kept serving traffic the whole time: stage moved first, then prod services were switched over in batches, and each data store got a migration method that suited it.
 
-> Sanitized from real work. Company, domain, hostnames, IPs, account IDs and people are removed. My role: I planned and ran the infrastructure, application, Redis, Kafka, Cassandra, Elasticsearch and DNS migration, with one colleague helping on VM setup and monitoring. **MySQL/ProxySQL were migrated by other teams**, and the **MongoDB Atlas** cloud-provider change was done by the client's team.
 
 ## Architecture during the migration
 
